@@ -1,0 +1,26 @@
+body {
+  font-family: Arial;
+  text-align: center;
+  margin-top: 50px;
+}
+
+input {
+    paddong: 10px;
+}
+
+button {
+    padding: 10px;
+    cursor: pointer;   
+}   
+
+li {
+    margin: 10px;
+    list-style: none;
+    display: flex;
+  justify-content: center;
+  gap: 10px;
+}   
+
+body {
+  background-color: rgba(111, 0, 255, 0.877);
+}
