@@ -5,15 +5,31 @@
   <title>To-Do List</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <h1>Minha To-Do List</h1>
+  <main class="container">
 
-  <input type="text" id="inputTarefa" placeholder="Digite uma tarefa">
-  <button onclick="adicionarTarefa()">Adicionar</button>
+    <h1>Minha To-Do List</h1>
 
-  <ul id="lista"></ul>
+    <section class="input-area">
+      <input type="text" id="inputTarefa" placeholder="Digite uma tarefa">
+      <button onclick="adicionarTarefa()">Adicionar</button>
+    </section>
+
+    <section class="filtros">
+      <button onclick="mostrarTodas()">Todas</button>
+      <button onclick="mostrarPendentes()">Pendentes</button>
+      <button onclick="mostrarConcluidas()">Concluídas</button>
+    </section>
+
+    <p id="contador">Total: 0 | Concluídas: 0</p>
+
+    <ul id="lista"></ul>
+
+  </main>
 
   <script src="script.js"></script>
+
 </body>
 </html>

@@ -1,34 +1,137 @@
-function adicionarTarefa() {
-    let input = document.getElementById("inputTarefa");
-    let texto = input.value;
+// ==========================
+// CRIAR TAREFA NA TELA
+// ==========================
 
-    if (texto === "") return;
+function criarTarefa(texto, concluida = false) {
+  const lista = document.getElementById("lista");
 
-    let lista = document.getElementById("lista");
+  const li = document.createElement("li");
 
-    let li = document.createElement("li");
-    li.innerText = texto;
+  const span = document.createElement("span");
+  span.innerText = texto;
 
-    li.onclick = function() {
-        li.style.textDecoration = "line-through";
-    };
+  if (concluida) {
+    span.classList.add("concluida");
+  }
 
-    let botao = document.createElement("button");
-    botao.innerText = "Excluir";
+  span.onclick = () => {
+    span.classList.toggle("concluida");
+    salvarTarefas();
+    atualizarContador();
+  };
 
-    botao.onclick = function() {
-        lista.removeChild(li);
-    };
+  const botao = document.createElement("button");
+  botao.innerText = "❌";
 
-    li.appendChild(botao);
-    lista.appendChild(li);
+  botao.onclick = () => {
+    li.remove();
+    salvarTarefas();
+    atualizarContador();
+  };
 
-    input.value = "";
+  li.appendChild(span);
+  li.appendChild(botao);
+  lista.appendChild(li);
 }
 
+// ==========================
+// ADICIONAR TAREFA
+// ==========================
+
+function adicionarTarefa() {
+  const input = document.getElementById("inputTarefa");
+  const texto = input.value;
+
+  if (texto.trim() === "") return;
+
+  criarTarefa(texto);
+
+  input.value = "";
+
+  salvarTarefas();
+  atualizarContador();
+}
+
+// ==========================
+// SALVAR NO LOCALSTORAGE
+// ==========================
+
+function salvarTarefas() {
+  const tarefas = [];
+
+  document.querySelectorAll("#lista li").forEach(li => {
+    tarefas.push({
+      texto: li.querySelector("span").innerText,
+      concluida: li.querySelector("span").classList.contains("concluida")
+    });
+  });
+
+  localStorage.setItem("tarefas", JSON.stringify(tarefas));
+}
+
+// ==========================
+// CARREGAR DO LOCALSTORAGE
+// ==========================
+
+function carregarTarefas() {
+  const tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+
+  tarefas.forEach(tarefa => {
+    criarTarefa(tarefa.texto, tarefa.concluida);
+  });
+
+  atualizarContador();
+}
+
+// ==========================
+// FILTROS
+// ==========================
+
+function mostrarTodas() {
+  document.querySelectorAll("#lista li").forEach(li => {
+    li.style.display = "flex";
+  });
+}
+
+function mostrarPendentes() {
+  document.querySelectorAll("#lista li").forEach(li => {
+    const ok = li.querySelector("span").classList.contains("concluida");
+    li.style.display = ok ? "none" : "flex";
+  });
+}
+
+function mostrarConcluidas() {
+  document.querySelectorAll("#lista li").forEach(li => {
+    const ok = li.querySelector("span").classList.contains("concluida");
+    li.style.display = ok ? "flex" : "none";
+  });
+}
+
+// ==========================
+// CONTADOR
+// ==========================
+
+function atualizarContador() {
+  const total = document.querySelectorAll("#lista li").length;
+  const concluidas = document.querySelectorAll(".concluida").length;
+
+  document.getElementById("contador").innerText =
+    `Total: ${total} | Concluídas: ${concluidas}`;
+}
+
+// ==========================
+// ENTER KEY
+// ==========================
+
 document.getElementById("inputTarefa")
-  .addEventListener("keypress", function(event) {
+  .addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       adicionarTarefa();
     }
-});
+  });
+
+// ==========================
+// INICIALIZAÇÃO
+// ==========================
+
+carregarTarefas();

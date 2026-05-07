@@ -1,26 +1,95 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
 body {
-  font-family: Arial;
+  font-family: Arial, sans-serif;
+  background-color: #0f172a;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* CONTAINER */
+.container {
+  background-color: #1e293b;
+  padding: 30px;
+  border-radius: 16px;
+  width: 400px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   text-align: center;
-  margin-top: 50px;
+}
+
+/* INPUT AREA */
+.input-area {
+  display: flex;
+  gap: 10px;
 }
 
 input {
-    paddong: 10px;
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
 }
 
+/* BUTTONS */
 button {
-    padding: 10px;
-    cursor: pointer;   
-}   
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3b82f6;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #2563eb;
+}
+
+/* FILTERS */
+.filtros {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+/* LIST */
+ul {
+  list-style: none;
+  padding: 0;
+}
 
 li {
-    margin: 10px;
-    list-style: none;
-    display: flex;
-  justify-content: center;
-  gap: 10px;
-}   
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #334155;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
 
-body {
-  background-color: rgba(111, 0, 255, 0.877);
+/* DONE TASK */
+.concluida {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* COUNTER */
+#contador {
+  font-size: 14px;
+  opacity: 0.8;
 }
